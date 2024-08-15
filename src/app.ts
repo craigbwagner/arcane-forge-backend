@@ -1,7 +1,9 @@
-import express, { Express, Request, Response } from 'express';
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
-import cors from 'cors';
+const express = require('express');
+const dotenv = require('dotenv');
+const mongoose = require('mongoose');
+const cors = require('cors');
+
+const usersRouter = require('./routes/users');
 
 const app:Express = express();
 dotenv.config();
@@ -18,9 +20,7 @@ mongoose.connection.on('connected', () => {
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req: Request, res:Response) => {
-  res.send('Hello, TypeScript Node Express!');
-});
+app.use("/users", require("./routes/users", usersRouter));
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
