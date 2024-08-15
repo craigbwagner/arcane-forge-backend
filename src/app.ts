@@ -6,6 +6,10 @@ import cors from 'cors';
 const app = express();
 dotenv.config();
 
+if (!process.env.MONGO_URI) {
+  throw new Error('MONGO_URI environment variable is not defined.');
+}
+
 mongoose.connect(process.env.MONGO_URI);
 mongoose.connection.on('connected', () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}`);
