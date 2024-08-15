@@ -1,9 +1,9 @@
-import express from 'express';
+import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-const app = express();
+const app:Express = express();
 dotenv.config();
 
 if (!process.env.MONGO_URI) {
@@ -18,7 +18,7 @@ mongoose.connection.on('connected', () => {
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res:Response) => {
   res.send('Hello, TypeScript Node Express!');
 });
 
