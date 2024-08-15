@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
-interface Class {
+export interface Class {
   name: string,
   subclass: string,
   level: number,
 }
 
-interface Character {
+export interface Character {
   name?: string
   race?: string,
   classes?: Class[],
