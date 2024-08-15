@@ -1,6 +1,44 @@
 import mongoose from "mongoose";
 
-const characterSchema = new mongoose.Schema({
+interface Character {
+  name?: string
+  race?: string,
+  classes?: [{name: String, subclass: String, level: Number}],
+  level?: number,
+  sex?: string,
+  size?: string,
+  age?: number,
+  height?: string,
+  weight?: number,
+  alignment?: string,
+  languages?: string[],
+  initiative?: number,
+  initiativeMods?: number,
+  speed?: number,
+  maxHP?: number,
+  currentHP?: number,
+  tempHP?: number,
+  hitDiceRemaining?: number,
+  hitDiceType?: string,
+  hitDiceTotal?: number,
+  strength?: number,
+  dexterity?: number,
+  constitution?: number,
+  intelligence?: number,
+  wisdom?: number,
+  charisma?: number,
+  savingThrowProficiencies?: string[],
+  skillProficiencies?: string[],
+  skillExpertise?: string[]
+}
+
+interface User {
+  username: string,
+  password: string,
+  characters: Character[]
+}
+
+const characterSchema = new mongoose.Schema<Character>({
   name: String,
   race: String,
   classes: [{name: String, subclass: String, level: Number}],
@@ -35,7 +73,7 @@ const characterSchema = new mongoose.Schema({
   skillExpertise: [String],
 }, {timestamps: true});
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<User>({
   username: {
     type: String,
     required: true,
@@ -54,4 +92,4 @@ userSchema.set('toJSON', {
   },
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model<User>('User', userSchema);
