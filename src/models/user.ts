@@ -1,9 +1,15 @@
 import mongoose from "mongoose";
 
+interface Class {
+  name: string,
+  subclass: string,
+  level: number,
+}
+
 interface Character {
   name?: string
   race?: string,
-  classes?: [{name: String, subclass: String, level: Number}],
+  classes?: Class[],
   level?: number,
   sex?: string,
   size?: string,
