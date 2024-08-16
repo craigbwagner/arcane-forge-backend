@@ -2,6 +2,7 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import verifyToken from './middleware/verifyToken';
 
 import usersRouter from './routes/users';
 
@@ -21,6 +22,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/users", usersRouter);
+
+app.use(verifyToken);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
