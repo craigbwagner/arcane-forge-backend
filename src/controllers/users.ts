@@ -24,8 +24,10 @@ async function signUp(req:Request, res: Response) {
     });
     const token: string = generateToken(user);
     res.status(201).json({ username: user.username, id: user._id, token });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 }
 
@@ -38,8 +40,10 @@ async function signIn(req: Request, res: Response) {
     } else {
       res.status(401).json({ error: "Invalid username or password." });
     }
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 }
 
