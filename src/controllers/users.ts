@@ -46,6 +46,9 @@ function generateToken(user: UserDocument): string {
   if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET environment variable is not defined.");
   }
+  if (!user) {
+    throw new Error("User is not defined.");
+  }
   const token = jwt.sign({ username: user.username, _id: user._id }, process.env.JWT_SECRET);
   return token;
 }
