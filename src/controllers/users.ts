@@ -16,7 +16,7 @@ async function signUp(req:Request, res: Response) {
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, SALT_LENGTH),
     });
-    const token = generateToken(user);
+    const token: string = generateToken(user);
     res.status(201).json({ user, token });
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -37,7 +37,10 @@ async function signIn(req: Request, res: Response) {
   }
 }
 
-function generateToken(user: { username: string, _id: string }) {
+function generateToken(user): string {
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET environment variable is not defined.");
+  }
   const token = jwt.sign({ username: user.username, _id: user._id }, process.env.JWT_SECRET);
   return token;
 }
