@@ -11,7 +11,7 @@ export default function verifyToken(req: Request, res: Response, next: NextFunct
       throw new Error("JWT_SECRET is required.");
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    res.json(decoded);
+    req.body.user = decoded;
     next();
   } catch (err: unknown) {
     res.status(401).json({ error: "Invalid token." });
