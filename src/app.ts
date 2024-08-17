@@ -21,9 +21,11 @@ mongoose.connection.on('connected', () => {
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.json({ message: 'Hello, world!' });
+});
 app.use("/users", usersRouter);
 
-app.use(verifyToken);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
