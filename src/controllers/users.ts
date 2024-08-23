@@ -54,7 +54,7 @@ function generateToken(user: UserDocument): string {
   if (!user) {
     throw new Error("User is not defined.");
   }
-  const token = jwt.sign({ username: user.username, _id: user._id }, process.env.JWT_SECRET);
+  const token: string = jwt.sign({ username: user.username, _id: user._id }, process.env.JWT_SECRET);
   return token;
 }
 
