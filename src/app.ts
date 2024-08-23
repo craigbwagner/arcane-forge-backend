@@ -2,6 +2,7 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import morgan from 'morgan';
 import verifyToken from './middleware/verifyToken';
 
 import usersRouter from './routes/users';
@@ -20,6 +21,7 @@ mongoose.connection.on('connected', () => {
 
 app.use(cors());
 app.use(express.json());
+app.use(morgan('dev'));   ;
 
 app.get('/', (req, res) => {
   res.json({ message: 'Hello, world!' });
