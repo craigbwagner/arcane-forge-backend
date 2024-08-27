@@ -28,7 +28,7 @@ app.use("/users", usersRouter);
 
 app.use(verifyToken);
 
-app.use(charactersRouter);
+app.use("/characters", charactersRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
