@@ -34,9 +34,11 @@ async function update(req: Request, res: Response) {
     if (!character) {
       return res.status(404).json({ error: "Character not found." });
     } else {
-      Object.assign(character, req.body);
-      await character.save();
-      res.status(200).json(character);
+      const updatedCharacter: CharacterDocument | null = await CharacterModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      if (!updatedCharacter) {
+        return res.status(400).json({ error: "Failed to update character." });
+      }
+      res.status(200).json(updatedCharacter);
     }
   } catch (err: unknown) {
     if (err instanceof Error) {
