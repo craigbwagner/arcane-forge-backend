@@ -4,5 +4,6 @@ import charactersController from '../controllers/characters';
 const router = Router();
 
 router.get('/', charactersController.index);
+router.post('/new', charactersController.create);
 
 export default router;
