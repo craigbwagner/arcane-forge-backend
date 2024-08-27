@@ -98,4 +98,7 @@ userSchema.set('toJSON', {
   },
 });
 
-export default mongoose.model<User>('User', userSchema);
+const UserModel = mongoose.model<User>('User', userSchema);
+const CharacterModel = mongoose.model<Character>('Character', characterSchema);
+
+export { UserModel, CharacterModel };
