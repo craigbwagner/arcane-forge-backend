@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
-import User from "../models/user";
+import { UserModel } from "../models/user";
 import jwt from "jsonwebtoken";
 
 const SALT_LENGTH = 12;
@@ -14,11 +14,11 @@ type UserDocument = {
 
 async function signUp(req:Request, res: Response) {
   try {
-    const userInDatabase = await User.findOne({ username: req.body.username });
+    const userInDatabase = await UserModel.findOne({ username: req.body.username });
     if (userInDatabase) {
       return res.status(400).json({ error: "Username already taken." });
     }
-    const user: UserDocument = await User.create({
+    const user: UserDocument = await UserModel.create({
       username: req.body.username,
       password: bcrypt.hashSync(req.body.password, SALT_LENGTH),
     });
@@ -33,7 +33,7 @@ async function signUp(req:Request, res: Response) {
 
 async function signIn(req: Request, res: Response) {
   try {
-    const user: UserDocument = await User.findOne({ username: req.body.username });
+    const user: UserDocument = await UserModel.findOne({ username: req.body.username });
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       const token = generateToken(user);
       res.status(200).json({ token });
