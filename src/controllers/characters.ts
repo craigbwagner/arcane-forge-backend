@@ -1,7 +1,20 @@
 import { Request, Response } from "express";
 import { ObjectId } from "mongodb";
-import { characterSchema, Character } from "../models/user";
+import { Character, CharacterModel } from "../models/user";
 
 interface CharacterDocument extends Character {
   _id: ObjectId;
   }
+
+async function index(req: Request, res: Response) {
+  try {
+    const characters: CharacterDocument[] = await CharacterModel.find();
+    res.status(200).json(characters);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return res.status(400).json({ error: err.message });
+    }
+  }
+}
+
+  export default {};
