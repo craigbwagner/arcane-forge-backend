@@ -6,15 +6,15 @@ interface CharacterDocument extends Character {
   _id: ObjectId;
   }
 
-async function index(req: Request, res: Response) {
+async function index(req: Request, res: Response): Promise<void> {
   try {
     const characters: CharacterDocument[] = await CharacterModel.find();
     res.status(200).json(characters);
   } catch (err: unknown) {
     if (err instanceof Error) {
-      return res.status(400).json({ error: err.message });
+      res.status(400).json({ error: err.message });
     }
   }
 }
 
-  export default {};
+  export default { index };
