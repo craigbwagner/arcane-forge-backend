@@ -17,4 +17,15 @@ async function index(req: Request, res: Response): Promise<void> {
   }
 }
 
-  export default { index };
+async function create(req: Request, res: Response): Promise<void> {
+  try {
+    const character: CharacterDocument = await CharacterModel.create(req.body);
+    res.status(201).json(character);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      res.status(400).json({ error: err.message });
+    }
+  }
+}
+
+  export default { index, create };
