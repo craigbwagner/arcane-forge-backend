@@ -26,7 +26,7 @@ async function signUp(req:Request, res: Response) {
     res.status(201).json({ username: user.username, id: user._id, token });
   } catch (err: unknown) {
     if (err instanceof Error) {
-      return res.status(400).json({ error: err.message });
+      res.status(400).json({ error: err.message });
     }
   }
 }
@@ -42,7 +42,7 @@ async function signIn(req: Request, res: Response) {
     }
   } catch (err: unknown) {
     if (err instanceof Error) {
-      return res.status(400).json({ error: err.message });
+      res.status(400).json({ error: err.message });
     }
   }
 }
