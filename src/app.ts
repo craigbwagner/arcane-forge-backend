@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import verifyToken from './middleware/verifyToken';
 
 import usersRouter from './routes/users';
+import charactersRouter from './routes/characters';
 
 const app = express();
 dotenv.config();
@@ -25,6 +26,9 @@ app.use(morgan('dev'));   ;
 
 app.use("/users", usersRouter);
 
+app.use(verifyToken);
+
+app.use(charactersRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
