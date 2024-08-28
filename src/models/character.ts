@@ -7,6 +7,7 @@ interface Class {
 }
 
 export interface Character {
+  creator: mongoose.Schema.Types.ObjectId,
   name?: string
   race?: string,
   classes?: Class[],
@@ -39,6 +40,10 @@ export interface Character {
 }
 
 const characterSchema = new mongoose.Schema<Character>({
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
   name: String,
   race: String,
   classes: [{name: String, subclass: String, level: Number}],
