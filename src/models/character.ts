@@ -37,6 +37,8 @@ export interface Character {
   savingThrowProficiencies?: string[]
   skillProficiencies?: string[]
   skillExpertise?: string[]
+  abilities?: mongoose.Schema.Types.ObjectId[]
+  items?: mongoose.Schema.Types.ObjectId[]
 }
 
 const characterSchema = new mongoose.Schema<Character>({
@@ -77,6 +79,8 @@ const characterSchema = new mongoose.Schema<Character>({
   savingThrowProficiencies: [String],
   skillProficiencies: [String],
   skillExpertise: [String],
+  abilities: [{type: mongoose.Schema.Types.ObjectId, ref: 'Ability'}],
+  items: [{type: mongoose.Schema.Types.ObjectId, ref: 'Item'}],
 }, {timestamps: true});
 
 const Character = mongoose.model<Character>('Character', characterSchema);
