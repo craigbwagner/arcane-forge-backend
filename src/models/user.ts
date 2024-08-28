@@ -1,83 +1,10 @@
 import mongoose from "mongoose";
 
-export interface Class {
-  name: string,
-  subclass: string,
-  level: number,
-}
-
-export interface Character {
-  name?: string
-  race?: string,
-  classes?: Class[],
-  level?: number,
-  sex?: string,
-  size?: string,
-  age?: number,
-  height?: string,
-  weight?: number,
-  alignment?: string,
-  languages?: string[],
-  initiative?: number,
-  initiativeMods?: number,
-  speed?: number,
-  maxHP?: number,
-  currentHP?: number,
-  tempHP?: number,
-  hitDiceRemaining?: number,
-  hitDiceType?: string,
-  hitDiceTotal?: number,
-  strength?: number,
-  dexterity?: number,
-  constitution?: number,
-  intelligence?: number,
-  wisdom?: number,
-  charisma?: number,
-  savingThrowProficiencies?: string[],
-  skillProficiencies?: string[],
-  skillExpertise?: string[]
-}
-
 interface User {
   username: string,
   password: string,
-  characters: Character[]
+  characters: string[],
 }
-
-const characterSchema = new mongoose.Schema<Character>({
-  name: String,
-  race: String,
-  classes: [{name: String, subclass: String, level: Number}],
-  level: {
-    type: Number,
-    max: 20,
-  },
-  sex: String,
-  size: String,
-  age: Number,
-  height: String,
-  weight: Number,
-  alignment: String,
-  languages: [String],
-  initiative: Number,
-  initiativeMods: Number,
-  speed: Number,
-  maxHP: Number,
-  currentHP: Number,
-  tempHP: Number,
-  hitDiceRemaining: Number,
-  hitDiceType: String,
-  hitDiceTotal: Number,
-  strength: Number,
-  dexterity: Number,
-  constitution: Number,
-  intelligence: Number,
-  wisdom: Number,
-  charisma: Number,
-  savingThrowProficiencies: [String],
-  skillProficiencies: [String],
-  skillExpertise: [String],
-}, {timestamps: true});
 
 const userSchema = new mongoose.Schema<User>({
   username: {
@@ -89,7 +16,11 @@ const userSchema = new mongoose.Schema<User>({
     type: String,
     required: true,
   },
-  characters: [characterSchema],
+  characters: [
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Character',
+  } ],
 });
 
 userSchema.set('toJSON', {
@@ -98,7 +29,6 @@ userSchema.set('toJSON', {
   },
 });
 
-const UserModel = mongoose.model<User>('User', userSchema);
-const CharacterModel = mongoose.model<Character>('Character', characterSchema);
+const User = mongoose.model<User>('User', userSchema);
 
-export { UserModel, CharacterModel };
+export { User };
