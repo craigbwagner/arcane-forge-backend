@@ -43,6 +43,7 @@ const characterSchema = new mongoose.Schema<Character>({
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
+    required: true,
   },
   name: String,
   race: String,
