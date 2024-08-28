@@ -7,35 +7,35 @@ interface Class {
 }
 
 export interface Character {
-  creator: mongoose.Schema.Types.ObjectId,
+  creator: mongoose.Schema.Types.ObjectId
   name?: string
-  race?: string,
-  classes?: Class[],
-  level?: number,
-  sex?: string,
-  size?: string,
-  age?: number,
-  height?: string,
-  weight?: number,
-  alignment?: string,
-  languages?: string[],
-  initiative?: number,
-  initiativeMods?: number,
-  speed?: number,
-  maxHP?: number,
-  currentHP?: number,
-  tempHP?: number,
-  hitDiceRemaining?: number,
-  hitDiceType?: string,
-  hitDiceTotal?: number,
-  strength?: number,
-  dexterity?: number,
-  constitution?: number,
-  intelligence?: number,
-  wisdom?: number,
-  charisma?: number,
-  savingThrowProficiencies?: string[],
-  skillProficiencies?: string[],
+  race?: string
+  classes?: Class[]
+  level?: number
+  sex?: string
+  size?: string
+  age?: number
+  height?: string
+  weight?: number
+  alignment?: string
+  languages?: string[]
+  initiative?: number
+  initiativeMods?: number
+  speed?: number
+  maxHP?: number
+  currentHP?: number
+  tempHP?: number
+  hitDiceRemaining?: number
+  hitDiceType?: string
+  hitDiceTotal?: number
+  strength?: number
+  dexterity?: number
+  constitution?: number
+  intelligence?: number
+  wisdom?: number
+  charisma?: number
+  savingThrowProficiencies?: string[]
+  skillProficiencies?: string[]
   skillExpertise?: string[]
 }
 
