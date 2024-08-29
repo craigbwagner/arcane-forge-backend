@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 
 const SALT_LENGTH = 12;
 
-type UserDocument = {
+interface IUser {
   username: string;
   password: string;
   _id?: Schema.Types.ObjectId;
@@ -19,7 +19,7 @@ async function signUp(req:Request, res: Response) {
     if (userInDatabase) {
       return res.status(400).json({ error: "Username already taken." });
     }
-    const user: UserDocument = await User.create({
+    const user: IUser = await User.create({
       username: req.body.username,
       password: bcrypt.hashSync(req.body.password, SALT_LENGTH),
     });
@@ -34,7 +34,8 @@ async function signUp(req:Request, res: Response) {
 
 async function signIn(req: Request, res: Response) {
   try {
-    const user: UserDocument = await User.findOne({ username: req.body.username });
+    const user: IUser | null = await User.findOne({ username: req.body.username }).populate( "characters");
+    console.log("user after populate:", user)
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       const token = generateToken(user);
       res.status(200).json({ token });
