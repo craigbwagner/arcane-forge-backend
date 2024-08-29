@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ObjectId } from "mongodb";
+import {Schema, Types } from "mongoose";
 import bcrypt from "bcrypt";
 import { User } from "../models/user";
 import jwt from "jsonwebtoken";
@@ -9,7 +9,8 @@ const SALT_LENGTH = 12;
 type UserDocument = {
   username: string;
   password: string;
-  _id: ObjectId;
+  _id?: Schema.Types.ObjectId;
+  characters: Schema.Types.ObjectId[];
 } | null;
 
 async function signUp(req:Request, res: Response) {
