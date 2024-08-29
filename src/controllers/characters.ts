@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ObjectId } from "mongodb";
+import { Schema, Types } from "mongoose";
 import { Character } from "../models/character";
 
 interface CharacterDocument extends Character {
