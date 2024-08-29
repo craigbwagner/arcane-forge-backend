@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { Schema, Types } from "mongoose";
 import { Character } from "../models/character";
 
 async function index(req: Request, res: Response){
