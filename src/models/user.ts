@@ -1,13 +1,13 @@
 import { Schema, model, Types } from "mongoose";
 
-interface User {
+interface IUser {
   username: string,
   password: string,
   _id: Types.ObjectId,
   characters: Types.ObjectId[],
 }
 
-const userSchema = new Schema<User>({
+const userSchema = new Schema<IUser>({
   username: {
     type: String,
     required: true,
@@ -30,6 +30,6 @@ userSchema.set('toJSON', {
   },
 });
 
-const User = model<User>('User', userSchema);
+const User = model<IUser>('User', userSchema);
 
 export { User };
