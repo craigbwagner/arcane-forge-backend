@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import { Schema, Types } from "mongoose";
 import { Character } from "../models/character";
 
-interface CharacterDocument extends Character {
-  _id: ObjectId;
+export interface ICharacter extends Character {
+  _id: Types.ObjectId;
   }
 
 async function index(req: Request, res: Response){
@@ -19,7 +19,7 @@ async function index(req: Request, res: Response){
 
 async function create(req: Request, res: Response){
   try {
-    const character: CharacterDocument = await Character.create(req.body);
+    const character: ICharacter = await Character.create(req.body);
     res.status(201).json(character);
   } catch (err: unknown) {
     if (err instanceof Error) {
@@ -30,11 +30,11 @@ async function create(req: Request, res: Response){
 
 async function update(req: Request, res: Response) {
   try {
-    const character: CharacterDocument | null = await Character.findById(req.params.id);
+    const character: ICharacter | null = await Character.findById(req.params.id);
     if (!character) {
       return res.status(404).json({ error: "Character not found." });
     } else {
-      const updatedCharacter: CharacterDocument | null = await Character.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const updatedCharacter: ICharacter | null = await Character.findByIdAndUpdate(req.params.id, req.body, { new: true });
       if (!updatedCharacter) {
         return res.status(400).json({ error: "Failed to update character." });
       }
@@ -49,7 +49,7 @@ async function update(req: Request, res: Response) {
 
 async function destroy(req: Request, res: Response) {
   try {
-    const character: CharacterDocument | null = await Character.findById(req.params.id);
+    const character: ICharacter | null = await Character.findById(req.params.id);
     if (!character) {
       return res.status(404).json({ error: "Character not found." });
     } else {
