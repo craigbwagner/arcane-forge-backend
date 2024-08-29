@@ -1,46 +1,5 @@
 import { Schema, Types, model } from "mongoose";
 
-interface Class {
-  name: string,
-  subclass: string,
-  level: number,
-}
-
-export interface Character {
-  creator: Types.ObjectId
-  name?: string
-  race?: string
-  classes?: Class[]
-  level?: number
-  sex?: string
-  size?: string
-  age?: number
-  height?: string
-  weight?: number
-  alignment?: string
-  languages?: string[]
-  initiative?: number
-  initiativeMods?: number
-  speed?: number
-  maxHP?: number
-  currentHP?: number
-  tempHP?: number
-  hitDiceRemaining?: number
-  hitDiceType?: string
-  hitDiceTotal?: number
-  strength?: number
-  dexterity?: number
-  constitution?: number
-  intelligence?: number
-  wisdom?: number
-  charisma?: number
-  savingThrowProficiencies?: string[]
-  skillProficiencies?: string[]
-  skillExpertise?: string[]
-  abilities?: Types.ObjectId[]
-  items?: Types.ObjectId[]
-}
-
 const characterSchema = new Schema({
   creator: String,
   name: String,
@@ -79,6 +38,6 @@ const characterSchema = new Schema({
   items: [{type: Schema.Types.ObjectId, ref: 'Item'}],
 }, {timestamps: true});
 
-const Character = model<Character>('Character', characterSchema);
+const Character = model('Character', characterSchema);
 
 export { Character };
