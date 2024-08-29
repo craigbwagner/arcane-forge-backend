@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { Schema, Types, model } from "mongoose";
 
 interface Class {
   name: string,
@@ -7,7 +7,7 @@ interface Class {
 }
 
 export interface Character {
-  creator: mongoose.Schema.Types.ObjectId
+  creator: Types.ObjectId
   name?: string
   race?: string
   classes?: Class[]
@@ -37,13 +37,13 @@ export interface Character {
   savingThrowProficiencies?: string[]
   skillProficiencies?: string[]
   skillExpertise?: string[]
-  abilities?: mongoose.Schema.Types.ObjectId[]
-  items?: mongoose.Schema.Types.ObjectId[]
+  abilities?: Types.ObjectId[]
+  items?: Types.ObjectId[]
 }
 
-const characterSchema = new mongoose.Schema<Character>({
+const characterSchema = new Schema<Character>({
   creator: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
@@ -79,10 +79,10 @@ const characterSchema = new mongoose.Schema<Character>({
   savingThrowProficiencies: [String],
   skillProficiencies: [String],
   skillExpertise: [String],
-  abilities: [{type: mongoose.Schema.Types.ObjectId, ref: 'Ability'}],
-  items: [{type: mongoose.Schema.Types.ObjectId, ref: 'Item'}],
+  abilities: [{type: Schema.Types.ObjectId, ref: 'Ability'}],
+  items: [{type: Schema.Types.ObjectId, ref: 'Item'}],
 }, {timestamps: true});
 
-const Character = mongoose.model<Character>('Character', characterSchema);
+const Character = model<Character>('Character', characterSchema);
 
 export { Character };
