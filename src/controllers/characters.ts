@@ -2,13 +2,9 @@ import { Request, Response } from "express";
 import { Schema, Types } from "mongoose";
 import { Character } from "../models/character";
 
-export interface ICharacter extends Character {
-  _id: Types.ObjectId;
-  }
-
 async function index(req: Request, res: Response){
   try {
-    const characters: CharacterDocument[] = await Character.find();
+    const characters: typeof Character[] = await Character.find();
     res.status(200).json(characters);
   } catch (err: unknown) {
     if (err instanceof Error) {
@@ -19,7 +15,10 @@ async function index(req: Request, res: Response){
 
 async function create(req: Request, res: Response){
   try {
-    const character: ICharacter = await Character.create(req.body);
+    const character = await Character.create({
+      creator: req.body.creator
+    });
+    console.log(req.body)
     res.status(201).json(character);
   } catch (err: unknown) {
     if (err instanceof Error) {
@@ -30,11 +29,11 @@ async function create(req: Request, res: Response){
 
 async function update(req: Request, res: Response) {
   try {
-    const character: ICharacter | null = await Character.findById(req.params.id);
+    const character: typeof Character | null = await Character.findById(req.params.id);
     if (!character) {
       return res.status(404).json({ error: "Character not found." });
     } else {
-      const updatedCharacter: ICharacter | null = await Character.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const updatedCharacter: typeof Character | null = await Character.findByIdAndUpdate(req.params.id, req.body, { new: true });
       if (!updatedCharacter) {
         return res.status(400).json({ error: "Failed to update character." });
       }
@@ -49,7 +48,7 @@ async function update(req: Request, res: Response) {
 
 async function destroy(req: Request, res: Response) {
   try {
-    const character: ICharacter | null = await Character.findById(req.params.id);
+    const character: typeof Character | null = await Character.findById(req.params.id);
     if (!character) {
       return res.status(404).json({ error: "Character not found." });
     } else {
