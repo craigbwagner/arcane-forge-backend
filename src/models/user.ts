@@ -1,12 +1,13 @@
-import mongoose from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 interface User {
   username: string,
   password: string,
-  characters: string[],
+  _id: Types.ObjectId,
+  characters: Types.ObjectId[],
 }
 
-const userSchema = new mongoose.Schema<User>({
+const userSchema = new Schema<User>({
   username: {
     type: String,
     required: true,
@@ -18,7 +19,7 @@ const userSchema = new mongoose.Schema<User>({
   },
   characters: [
   {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Character',
   } ],
 });
@@ -29,6 +30,6 @@ userSchema.set('toJSON', {
   },
 });
 
-const User = mongoose.model<User>('User', userSchema);
+const User = model<User>('User', userSchema);
 
 export { User };
