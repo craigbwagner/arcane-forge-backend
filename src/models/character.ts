@@ -41,12 +41,8 @@ export interface Character {
   items?: Types.ObjectId[]
 }
 
-const characterSchema = new Schema<Character>({
-  creator: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
+const characterSchema = new Schema({
+  creator: String,
   name: String,
   race: String,
   classes: [{name: String, subclass: String, level: Number}],
