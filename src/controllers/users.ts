@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {Schema, Types } from "mongoose";
+import { Schema, Types } from "mongoose";
 import bcrypt from "bcrypt";
 import { User } from "../models/user";
 import jwt from "jsonwebtoken";
@@ -9,9 +9,9 @@ const SALT_LENGTH = 12;
 interface IUser {
   username: string;
   password: string;
-  _id?: Schema.Types.ObjectId;
-  characters: Schema.Types.ObjectId[];
-} | null;
+  _id?: Types.ObjectId;
+  characters: Types.ObjectId[];
+};
 
 async function signUp(req:Request, res: Response) {
   try {
