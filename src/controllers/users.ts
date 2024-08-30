@@ -3,6 +3,7 @@ import { Schema, Types } from "mongoose";
 import bcrypt from "bcrypt";
 import { User } from "../models/user";
 import jwt from "jsonwebtoken";
+import { Character } from "../models/character";
 
 const SALT_LENGTH = 12;
 
@@ -34,11 +35,12 @@ async function signUp(req:Request, res: Response) {
 
 async function signIn(req: Request, res: Response) {
   try {
-    const user: IUser | null = await User.findOne({ username: req.body.username }).populate( "characters");
+    const user: IUser | null = await User.findOne({ username: req.body.username }).populate( "characters").exec();
+
     console.log("user after populate:", user)
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       const token = generateToken(user);
-      res.status(200).json({ token });
+      res.status(200).json({ characters: user.characters, token });
     } else {
       res.status(401).json({ error: "Invalid username or password." });
     }
@@ -49,7 +51,7 @@ async function signIn(req: Request, res: Response) {
   }
 }
 
-function generateToken(user: UserDocument): string {
+function generateToken(user: IUser): string {
   if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET environment variable is not defined.");
   }
