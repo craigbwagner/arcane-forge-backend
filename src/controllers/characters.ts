@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Character } from "../models/character";
-import { IfUnknown } from "mongoose";
+import { User } from "../models/user";
+import { ObjectId } from "mongodb";
 
 async function index(req: Request, res: Response){
   try {
@@ -18,7 +19,13 @@ async function create(req: Request, res: Response){
     const character = await Character.create({
       creator: req.body.creator
     });
-    console.log(req.body)
+    const user = await User.findById(req.body.creator)
+    if(!user) {
+      return res.status(404).json({ error: "User not found." })
+    }
+    user.characters.push(character._id)
+    user.save()
+
     res.status(201).json(character);
   } catch (err: unknown) {
     if (err instanceof Error) {
@@ -61,10 +68,18 @@ async function update(req: Request, res: Response) {
 
 async function destroy(req: Request, res: Response) {
   try {
-    const character: typeof Character | null = await Character.findById(req.params.id);
+    const character = await Character.findById(req.params.id);
     if (!character) {
       return res.status(404).json({ error: "Character not found." });
     } else {
+      const user = await User.findById(character.creator)
+      console.log(character._id)
+      if(!user) {
+        return res.status(404).json({ error: "User not found." })
+      }
+      user.characters = user.characters.filter(characterId => characterId === character._id)
+      console.log(user.characters)
+      user.save();
       await Character.findByIdAndDelete(req.params.id);
       res.status(204).end();
     }
