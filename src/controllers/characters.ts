@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Character } from "../models/character";
+import { IfUnknown } from "mongoose";
 
 async function index(req: Request, res: Response){
   try {
@@ -23,6 +24,19 @@ async function create(req: Request, res: Response){
     if (err instanceof Error) {
       return res.status(400).json({ error: err.message });
     }
+  }
+}
+
+async function getCharacter(req: Request, res:Response) {
+  try {
+    const character = await Character.findById(req.params.id);
+    if (!character) {
+      return res.status(404).json({ error: "Character not found." })
+    } else {
+      res.status(200).json(character);
+    }
+  } catch (err: unknown) {
+
   }
 }
 
@@ -61,4 +75,4 @@ async function destroy(req: Request, res: Response) {
   }
 }
 
-  export default { index, create, update, destroy };
+  export default { index, create, getCharacter, update, destroy };
