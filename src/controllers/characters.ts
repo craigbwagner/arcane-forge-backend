@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { Character } from "../models/character";
 import { User } from "../models/user";
-import { ObjectId } from "mongodb";
 
 async function index(req: Request, res: Response){
   try {
