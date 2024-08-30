@@ -42,7 +42,9 @@ async function getCharacter(req: Request, res:Response) {
       res.status(200).json(character);
     }
   } catch (err: unknown) {
-
+    if (err instanceof Error) {
+      return res.status(400).json({ error: err.message });
+    }
   }
 }
 
