@@ -16,6 +16,7 @@ const monsterSchema = new Schema({
   maxHP: Number,
   currentHP: Number,
   tempHP: Number,
+  senses: [String],
   abilities: [String],
   actions: [String],
   bonusActions: [String]
