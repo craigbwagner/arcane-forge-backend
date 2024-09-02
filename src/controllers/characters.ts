@@ -15,9 +15,9 @@ async function index(req: Request, res: Response){
 
 async function create(req: Request, res: Response){
   try {
-    const character = await Character.create({
-      creator: req.body.creator
-    });
+    const characterData = req.body;
+    delete characterData.user;
+    const character = await Character.create(characterData);
     const user = await User.findById(req.body.creator)
     if(!user) {
       return res.status(404).json({ error: "User not found." })
