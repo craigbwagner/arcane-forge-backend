@@ -51,7 +51,7 @@ async function signIn(req: Request, res: Response) {
 
 async function fetchUserCharacters(req: Request, res: Response) {
   try {
-    const user: IUser | null = await User.findOne({ username: req.body.username }).populate( "characters").exec();
+    const user: IUser | null = await User.findOne({ _id: req.params.userId }).populate( "characters").exec();
     if(user) {
       res.status(200).json({characters: user.characters})
     } else {
