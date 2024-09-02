@@ -7,6 +7,7 @@ import verifyToken from './middleware/verifyToken';
 
 import usersRouter from './routes/users';
 import charactersRouter from './routes/characters';
+import monstersRouter from './routes/monsters'
 
 const app = express();
 dotenv.config();
@@ -29,6 +30,7 @@ app.use("/users", usersRouter);
 app.use(verifyToken);
 
 app.use("/characters", charactersRouter);
+app.use("/monsters", monstersRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
