@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
-import { Schema, Types } from "mongoose";
+import { Types } from "mongoose";
 import bcrypt from "bcrypt";
 import { User } from "../models/user";
 import jwt from "jsonwebtoken";
-import { Character } from "../models/character";
 
 const SALT_LENGTH = 12;
 
