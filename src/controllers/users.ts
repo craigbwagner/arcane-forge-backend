@@ -34,7 +34,13 @@ async function signUp(req:Request, res: Response) {
 
 async function signIn(req: Request, res: Response) {
   try {
-    const user: IUser | null = await User.findOne({ username: req.body.username }).populate( "characters").exec();
+    const user: IUser | null = await User.findOne({ username: req.body.username }).populate({
+      path: "characters",
+      // populate: [
+      //   { path: "items" },
+      //   { path: "abilities" }
+      // ]
+    }).exec();
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
       const token = generateToken(user);
       res.status(200).json({ characters: user.characters, token });
@@ -50,7 +56,13 @@ async function signIn(req: Request, res: Response) {
 
 async function fetchUserCharacters(req: Request, res: Response) {
   try {
-    const user: IUser | null = await User.findOne({ _id: req.params.userId }).populate( "characters").exec();
+    const user: IUser | null = await User.findOne({ _id: req.params.userId }).populate({
+      path: "characters",
+      // populate: [
+      //   { path: "items" },
+      //   { path: "abilities" }
+      // ]
+    }).exec();
     if(user) {
       res.status(200).json({characters: user.characters})
     } else {
