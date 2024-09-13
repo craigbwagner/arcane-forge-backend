@@ -1,5 +1,13 @@
 import { Schema, Types, model } from "mongoose";
 
+const skillSchema = new Schema({
+  name: String,
+  attributeName: String,
+  ability: String,
+  isProficient: Boolean,
+  hasExpertise: Boolean
+})
+
 const characterSchema = new Schema({
   creator: String,
   name: String,
@@ -32,8 +40,7 @@ const characterSchema = new Schema({
   wisdom: Number,
   charisma: Number,
   savingThrowProficiencies: [String],
-  skillProficiencies: [String],
-  skillExpertise: [String],
+  skills: [skillSchema],
   abilities: [{type: Schema.Types.ObjectId, ref: 'Ability'}],
   items: [{type: Schema.Types.ObjectId, ref: 'Item'}],
 }, {timestamps: true});
