@@ -43,7 +43,7 @@ const characterSchema = new Schema({
   hitDiceRemaining: Number,
   hitDiceType: String,
   hitDiceTotal: Number,
-  abilitieScores: [abilityScoreSchema],
+  abilityScores: [abilityScoreSchema],
   skills: [skillSchema],
   abilities: [{type: Schema.Types.ObjectId, ref: 'Ability'}],
   items: [{type: Schema.Types.ObjectId, ref: 'Item'}],
