@@ -10,6 +10,7 @@ const skillSchema = new Schema({
 
 const abilityScoreSchema = new Schema({
   name: String,
+  shortName: String,
   abilityScore: {
     type: Number,
     max: 20
