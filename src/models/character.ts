@@ -8,6 +8,15 @@ const skillSchema = new Schema({
   hasExpertise: Boolean
 })
 
+const abilityScoreSchema = new Schema({
+  name: String,
+  abilityScore: {
+    type: Number,
+    max: 20
+  },
+  isProficientSave: Boolean,
+})
+
 const characterSchema = new Schema({
   creator: String,
   name: String,
@@ -39,7 +48,7 @@ const characterSchema = new Schema({
   intelligence: Number,
   wisdom: Number,
   charisma: Number,
-  savingThrowProficiencies: [String],
+  abilitieScores: [abilityScoreSchema],
   skills: [skillSchema],
   abilities: [{type: Schema.Types.ObjectId, ref: 'Ability'}],
   items: [{type: Schema.Types.ObjectId, ref: 'Item'}],
