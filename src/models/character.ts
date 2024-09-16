@@ -8,7 +8,7 @@ const skillSchema = new Schema({
   hasExpertise: Boolean
 })
 
-const abilityScoreSchema = new Schema({
+const abilitySchema = new Schema({
   name: String,
   shortName: String,
   abilityScore: {
@@ -43,7 +43,7 @@ const characterSchema = new Schema({
   hitDiceRemaining: Number,
   hitDiceType: String,
   hitDiceTotal: Number,
-  abilities: [abilityScoreSchema],
+  abilities: [abilitySchema],
   skills: [skillSchema],
   features: [{type: Schema.Types.ObjectId, ref: 'Feature'}],
   items: [{type: Schema.Types.ObjectId, ref: 'Item'}],
