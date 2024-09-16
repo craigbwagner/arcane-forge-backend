@@ -43,9 +43,9 @@ const characterSchema = new Schema({
   hitDiceRemaining: Number,
   hitDiceType: String,
   hitDiceTotal: Number,
-  abilityScores: [abilityScoreSchema],
+  abilities: [abilityScoreSchema],
   skills: [skillSchema],
-  abilities: [{type: Schema.Types.ObjectId, ref: 'Ability'}],
+  features: [{type: Schema.Types.ObjectId, ref: 'Feature'}],
   items: [{type: Schema.Types.ObjectId, ref: 'Item'}],
 }, {timestamps: true});
 
