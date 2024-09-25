@@ -78,7 +78,6 @@ async function destroy(req: Request, res: Response) {
         return res.status(404).json({ error: "User not found." })
       }
       user.characters = user.characters.filter(characterId => characterId === character._id)
-      console.log(user.characters)
       user.save();
       await Character.findByIdAndDelete(req.params.id);
       res.status(204).end();
